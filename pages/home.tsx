@@ -7,6 +7,7 @@ import { styles } from '../styles/HomeStyle';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import kickVerifiedIcon from '../assets/public/kickVerified.png';
+import searchIcon from '../assets/public/searchIcon.png';
 
 type RootStackParamList = {
   UserDetails: { user: User };
@@ -37,12 +38,16 @@ const Home: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={[styles.input, styles.inputTop]}
-        placeholder="Nom du canal"
-        value={channelName}
-        onChangeText={setChannelName}
-      />
+      <View style={styles.inputContainer}>
+        <Image source={searchIcon} style={styles.searchIcon} />
+        <TextInput
+          style={styles.input}
+          placeholderTextColor="#FFFFFF28"
+          placeholder="Nom du canal"
+          value={channelName}
+          onChangeText={setChannelName}
+        />
+      </View>
       {userInfo && (
         <TouchableOpacity style={styles.card} onPress={goToUserDetails}>
           {userInfo.verified && (

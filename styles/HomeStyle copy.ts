@@ -1,43 +1,32 @@
 import { Platform, StatusBar, StyleSheet } from 'react-native';
 
-const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight ?? 0 : 0;
-
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#24272c',
-    paddingTop: statusBarHeight,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    paddingHorizontal: 10,
-    backgroundColor: '#171c1e',
-    borderRadius: 4,
-    width: '60%',
-    position: 'absolute',
-    top: 50,
-    zIndex: 1,
-    paddingTop: statusBarHeight + 10,
-    marginTop: 10,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   input: {
-    height: 30,
+    height: 40,
+    backgroundColor: "#171c1e",
+    width: '60%',
+    borderRadius: 2,
     color: '#FFFFFF',
-    flex: 1,
-    paddingTop: -10,
-    top: -5,
+    marginBottom: 10,
+    paddingHorizontal: 10,
   },
   inputTop: {
-    marginTop: 5,
+    position: 'absolute',
+    top: 70,
   },
   card: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#171c1e',
-    backgroundColor: '#171c1e',
+    borderColor: 'lightgray',
+    backgroundColor: 'white',
     padding: 10,
     borderRadius: 5,
     marginTop: 20,
@@ -66,11 +55,5 @@ export const styles = StyleSheet.create({
     width: 24,
     height: 24,
     zIndex: 1,
-  },
-  searchIcon: {
-    fontSize: 20,
-    marginRight: 10,
-    marginTop: 2,
-    tintColor: '#FFFFFF28',
   },
 });
