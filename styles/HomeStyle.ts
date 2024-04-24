@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
     height: 16,
     marginRight: 10,
     marginTop: 2,
-    tintColor: '#FFFFFF28',
+    tintColor: '#FFFFFFE5',
   },
   movingImage: {
     transform: [{ scale: 0.5 }],
@@ -107,5 +107,12 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#0b0e0f',
     padding: 20,
+  },
+  clearIcon: {
+    tintColor: '#FFFFFFE5',
+    width: 14,
+    height: 14,
+    marginRight: 1,
+    marginTop: 3,
   },
 });

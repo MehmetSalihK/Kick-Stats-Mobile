@@ -14,6 +14,7 @@ import movingImage3 from '../assets/public/404/movingImage3.png';
 import movingImage4 from '../assets/public/404/movingImage4.png';
 import movingImage5 from '../assets/public/404/movingImage5.png';
 import movingImage6 from '../assets/public/404/movingImage6.png';
+import clearIcon from '../assets/public/x.png';
 
 type RootStackParamList = {
   UserDetails: { user: User };
@@ -27,6 +28,11 @@ const Home: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
   const navigation = useNavigation<HomeNavigationProp>();
+
+  // Fonction pour supprimer le texte du champ de texte
+  const clearTextInput = () => {
+    setChannelName('');
+  };
 
   useEffect(() => {
     const searchUser = async () => {
@@ -76,6 +82,12 @@ const Home: React.FC = () => {
           value={channelName}
           onChangeText={setChannelName}
         />
+        {/* Affiche l'icône "x" uniquement si du texte est saisi */}
+        {channelName.trim() !== '' && (
+          <TouchableOpacity onPress={clearTextInput}>
+            <Image source={clearIcon} style={styles.clearIcon} />
+          </TouchableOpacity>
+        )}
       </View>
       {errorMessage !== '' && (
         <View style={styles.errorMessageContainer}>
