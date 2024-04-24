@@ -4,7 +4,7 @@
     "slug": "KickStats",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/kick.jpg",
+    "icon": "./assets/Kick.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -24,7 +24,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/Kick.png"
     }
   }
 }

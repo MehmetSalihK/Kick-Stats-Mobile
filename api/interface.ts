@@ -1,4 +1,6 @@
 interface User {
+  id: number;
+  username: any;
   verified: boolean;
   is_banned: boolean;
   subscription_enabled: boolean;

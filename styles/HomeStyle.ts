@@ -1,3 +1,5 @@
+// styles/HomeStyle.ts
+
 import { Platform, StatusBar, StyleSheet } from 'react-native';
 
 const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight ?? 0 : 0;
@@ -52,6 +54,7 @@ export const styles = StyleSheet.create({
   },
   username: {
     fontSize: 16,
+    color: '#FFFFFF',
     fontWeight: 'bold',
   },
   followersCount: {
@@ -68,9 +71,41 @@ export const styles = StyleSheet.create({
     zIndex: 1,
   },
   searchIcon: {
-    fontSize: 20,
+    width: 16,
+    height: 16,
     marginRight: 10,
     marginTop: 2,
     tintColor: '#FFFFFF28',
+  },
+  movingImage: {
+    transform: [{ scale: 0.5 }],
+    position: 'absolute',
+  },
+  visible: {
+    opacity: 1,
+  },
+  hidden: {
+    opacity: 0,
+  },
+  errorMessage: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 24,
+    marginTop: 180,
+  },
+  errorMessage2: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 10,
+    marginTop: 5,
+  },
+  errorMessageContainer: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0b0e0f',
+    padding: 20,
   },
 });
