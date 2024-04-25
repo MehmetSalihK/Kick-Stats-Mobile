@@ -1,5 +1,3 @@
-// styles/HomeStyle.ts
-
 import { Platform, StatusBar, StyleSheet } from 'react-native';
 
 const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight ?? 0 : 0;

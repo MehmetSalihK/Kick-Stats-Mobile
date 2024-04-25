@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { getUserInfo, getAllLiveChannels } from '../api/api'; // Supposons que vous avez des fonctions pour récupérer les informations des canaux
+import { getUserInfo } from '../api/api'; // Supposons que vous avez des fonctions pour récupérer les informations des canaux
 import User from '../api/interface';
 import { styles } from '../styles/HomeStyle';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import kickVerifiedIcon from '../assets/public/kickVerified.png';
 import searchIcon from '../assets/public/searchIcon.png';
+import clearIcon from '../assets/public/x.png';
+import movingImage1 from '../assets/public/404/movingImage1.png';
+import movingImage2 from '../assets/public/404/movingImage2.png';
+import movingImage3 from '../assets/public/404/movingImage3.png';
+import movingImage4 from '../assets/public/404/movingImage4.png';
+import movingImage5 from '../assets/public/404/movingImage5.png';
+import movingImage6 from '../assets/public/404/movingImage6.png';
 
 type RootStackParamList = {
   UserDetails: { user: User };
@@ -18,34 +25,51 @@ type HomeNavigationProp = StackNavigationProp<RootStackParamList, 'UserDetails'>
 const Home: React.FC = () => {
   const [channelName, setChannelName] = useState('');
   const [userInfo, setUserInfo] = useState<User | null>(null);
-  const [liveChannels, setLiveChannels] = useState<User[]>([]); // Un tableau pour stocker les informations des canaux en direct
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [errorMessage, setErrorMessage] = useState('');
   const navigation = useNavigation<HomeNavigationProp>();
 
-  useEffect(() => {
-    // Appel de la fonction pour récupérer tous les canaux en direct
-    const fetchLiveChannels = async () => {
-      const liveChannelsData = await getAllLiveChannels(); // Supposons que cette fonction retourne une liste d'utilisateurs en direct
-      setLiveChannels(liveChannelsData);
-    };
-
-    fetchLiveChannels();
-  }, []); // Appel une seule fois lors du chargement initial
+  // Fonction pour supprimer le texte du champ de texte
+  const clearTextInput = () => {
+    setChannelName('');
+  };
 
   useEffect(() => {
     const searchUser = async () => {
       if (channelName.trim() !== '') {
         const info = await getUserInfo(channelName.trim());
-        setUserInfo(info);
+        if (info) {
+          setUserInfo(info);
+          setErrorMessage('');
+        } else {
+          setUserInfo(null);
+          setErrorMessage(`Oups, quelque chose s'est mal passé`);
+        }
       } else {
         setUserInfo(null);
+        setErrorMessage('');
       }
     };
     searchUser();
   }, [channelName]);
 
-  const goToUserDetails = (user: User) => {
-    navigation.navigate('UserDetails', { user });
+  useEffect(() => {
+    if (errorMessage !== '') {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex === 5 ? 0 : prevIndex + 1));
+      }, 1000);
+  
+      return () => clearInterval(interval);
+    }
+  }, [errorMessage]);
+
+  const goToUserDetails = () => {
+    if (userInfo) {
+      navigation.navigate('UserDetails', { user: userInfo });
+    }
   };
+
+  const movingImages = [movingImage1, movingImage2, movingImage3, movingImage4, movingImage5, movingImage6];
 
   return (
     <View style={styles.container}>
@@ -58,32 +82,34 @@ const Home: React.FC = () => {
           value={channelName}
           onChangeText={setChannelName}
         />
+        {/* Affiche l'icône "x" uniquement si du texte est saisi */}
+        {channelName.trim() !== '' && (
+          <TouchableOpacity onPress={clearTextInput}>
+            <Image source={clearIcon} style={styles.clearIcon} />
+          </TouchableOpacity>
+        )}
       </View>
-      {/* Affichage de tous les canaux en direct */}
-      {liveChannels.map((user, index) => (
-        <TouchableOpacity key={index} style={styles.card} onPress={() => goToUserDetails(user)}>
-          {user.verified && (
-            <Image source={kickVerifiedIcon} style={styles.verifiedIcon} />
-          )}
-          {/* Supposons que vous affichiez également la photo de profil de l'utilisateur */}
-          <Image source={{ uri: user.user.profile_pic }} style={styles.profilePic} />
-          <View style={styles.userInfo}>
-            <Text style={styles.username}>{user.username}</Text>
-            <Text style={styles.followersCount}>Followers: {user.followers_count}</Text>
-            <Text style={styles.followersCount}>Live: Oui</Text> {/* Supposons que tous les canaux dans liveChannels sont en direct */}
-          </View>
-        </TouchableOpacity>
-      ))}
-      {/* Affichage des informations du canal saisi */}
-      {userInfo && (
-        <TouchableOpacity style={styles.card} onPress={() => goToUserDetails(userInfo)}>
+      {errorMessage !== '' && (
+        <View style={styles.errorMessageContainer}>
+          {movingImages.map((image, index) => (
+            <Image
+              key={index}
+              source={image}
+              style={[styles.movingImage, index === currentImageIndex ? styles.visible : styles.hidden]}
+            />
+          ))}
+          <Text style={styles.errorMessage}>{errorMessage}</Text>
+          <Text style={styles.errorMessage2}>Nous rencontrons quelques erreurs en ce moment, veuillez réessayer</Text>
+        </View>
+      )}
+      {userInfo && errorMessage === '' && (
+        <TouchableOpacity style={styles.card} onPress={goToUserDetails}>
           {userInfo.verified && (
             <Image source={kickVerifiedIcon} style={styles.verifiedIcon} />
           )}
-          {/* Supposons que vous affichiez également la photo de profil de l'utilisateur */}
           <Image source={{ uri: userInfo.user.profile_pic }} style={styles.profilePic} />
           <View style={styles.userInfo}>
-            <Text style={styles.username}>{userInfo.username}</Text>
+            <Text style={styles.username}>{userInfo.user.username}</Text>
             <Text style={styles.followersCount}>Followers: {userInfo.followers_count}</Text>
             <Text style={styles.followersCount}>Live: {userInfo.livestream ? 'Oui' : 'Non'}</Text>
           </View>

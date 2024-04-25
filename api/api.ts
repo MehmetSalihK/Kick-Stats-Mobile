@@ -6,7 +6,6 @@ async function getUserInfo(channelName: string): Promise<null> {
     const response = await axios.get(`https://kick.com/api/v2/channels/${channelName}`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching user information:', error);
     return null;
   }
 }
