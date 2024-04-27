@@ -79,10 +79,10 @@ export const styles = StyleSheet.create({
     fontSize: 20,
   },
   iconContainer: {
-    flexDirection: 'row', // Pour aligner l'icône et le texte horizontalement
-    alignItems: 'center', // Pour centrer l'icône et le texte verticalement
+    flexDirection: 'row',
+    alignItems: 'center',
     color: 'white',
-    marginBottom: 5, // Marge en bas pour espacer les différents éléments
+    marginBottom: 5,
   },
   icon: {
     color: 'white',
@@ -102,8 +102,29 @@ export const styles = StyleSheet.create({
     marginRight: 10,
   },
   iconRow: {
-    flexDirection: 'row', // Alignement horizontal des icônes
-    justifyContent: 'space-between', // Espace égal entre les icônes
-    marginBottom: 10, // Marge en bas pour espacer les lignes d'icônes
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
   },
+  playButtonLive: {
+    position: 'absolute',
+    bottom: -25,
+    right: -125,
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
+  },
+  playButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: [{ translateX: -25 }, { translateY: -25 }],
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+
 });

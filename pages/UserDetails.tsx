@@ -4,10 +4,10 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import User from '../api/interface';
 import { styles } from '../styles/UserDetailsStyle';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
-import  FilterImage  from 'react-native-image-filter-kit';
 
 import kickVerifiedIcon from '../assets/public/kickVerified.png';
+import playButton from '../assets/public/play.png';
+import playButtonLive from '../assets/public/playLive.gif';
 
 type RootStackParamList = {
   UserDetails: { user: User };
@@ -17,16 +17,44 @@ const UserDetails: React.FC = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'UserDetails'>>();
   const { user } = route.params;
 
+  const handleProfilePress = () => {
+    if (user.livestream) {
+      const iframeURL = `https://player.kick.com/${user.user.username}?autoplay=true`;
+      Linking.openURL(iframeURL);
+    }
+  };
+
+  const handleUsernamePress = () => {
+      const userProfileURL = `https://kick.com/${user.user.username}`;
+      Linking.openURL(userProfileURL);
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.cards}>
-        <Image source={{ uri: user.user.profile_pic }} style={styles.profilePic} />
-      </View>
+      {user.livestream && (
+        <TouchableOpacity onPress={handleProfilePress}>
+          <View style={styles.cards}>
+            <Image source={{ uri: user.user.profile_pic }} style={styles.profilePic} />
+            <>
+              <TouchableOpacity onPress={handleProfilePress}>
+                <Image source={playButtonLive} style={styles.playButtonLive} />
+              </TouchableOpacity>
+                <Image source={playButton} style={styles.playButton} />
+            </>
+          </View>
+        </TouchableOpacity>
+      )}
+
+      {!user.livestream && (
+        <View style={styles.cards}>
+          <Image source={{ uri: user.user.profile_pic }} style={styles.profilePic} />
+        </View>
+      )}
 
       <View style={styles.userInfo}>
         <View style={styles.Inputcards}>
-          <Text style={styles.username}>{user.user.username}</Text>
-          {user.user.agreed_to_terms && (
+          <Text style={styles.username} onPress={handleUsernamePress}>{user.user.username}</Text>
+          {user.verified && (
             <Image source={kickVerifiedIcon} style={styles.verifiedIcon} />
           )}
         </View>
