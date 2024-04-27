@@ -5,6 +5,7 @@ import User from '../api/interface';
 import { styles } from '../styles/UserDetailsStyle';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import  FilterImage  from 'react-native-image-filter-kit';
 
 import kickVerifiedIcon from '../assets/public/kickVerified.png';
 
