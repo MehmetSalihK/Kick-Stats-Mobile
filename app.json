@@ -15,16 +15,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sketur60.KickStats"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.sketur60.KickStats"
     },
     "web": {
       "favicon": "./assets/Kick.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "dfc2db89-4228-4bc6-8c52-d24ba3fd9bc8"
+      }
     }
   }
 }
