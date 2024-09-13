@@ -3,14 +3,15 @@ version: 2.1
 jobs:
   build-ios:
     macos:
-      xcode: "14.0.0"  # Remplace par une version disponible si nécessaire
+      xcode: "14.0.0"  # Utilise une version d'Xcode disponible pour ton plan
     steps:
       - checkout
       - run:
-          name: Install Node.js via Homebrew (for M1)
+          name: Install Node.js via Homebrew
           command: |
-            arch -arm64 brew install node@18
-            echo 'export PATH="/opt/homebrew/bin:$PATH"' >> $BASH_ENV
+            brew install node@18
+            echo 'export PATH="/opt/homebrew/opt/node@18/bin:$PATH"' >> $BASH_ENV
+            source $BASH_ENV
             node -v  # Vérifie la version de Node.js
             npm -v   # Vérifie la version de npm
       - run:
