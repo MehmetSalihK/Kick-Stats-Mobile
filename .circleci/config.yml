@@ -7,19 +7,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Node.js via Homebrew
+          name: List project files
+          command: ls -la
+      - run:
+          name: Install Cocoapods
           command: |
-            brew install node@18
-            echo 'export PATH="/opt/homebrew/opt/node@18/bin:$PATH"' >> $BASH_ENV
-            source $BASH_ENV
-            node -v  # Vérifie la version de Node.js
-            npm -v   # Vérifie la version de npm
-      - run:
-          name: Install dependencies
-          command: yarn install
-      - run:
-          name: Install cocoapods
-          command: pod install --project-directory=ios
+            cd ios
+            pod install
       - run:
           name: Build IPA
           command: |
