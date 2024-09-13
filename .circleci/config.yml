@@ -32,26 +32,8 @@ jobs:
           path: build/KickStats.ipa
           destination: ios-app-ipa
 
-  build-android:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: yarn install
-      - run:
-          name: Build APK
-          command: |
-            cd android
-            ./gradlew assembleRelease
-      - store_artifacts:
-          path: android/app/build/outputs/apk/release/app-release.apk
-          destination: android-app-apk
-
 workflows:
   version: 2
   build_and_deploy:
     jobs:
       - build-ios
-      - build-android
