@@ -1,0 +1,16 @@
+workflows:
+  deploy:
+    steps:
+      - activate-ssh-key:
+          title: Activate SSH key (RSA private key)
+      - git-clone:
+          title: Git Clone Repository
+      - yarn:
+          title: Run yarn command
+          inputs:
+            - command: install
+            - workdir: ./ # Assure-toi que c'est le bon répertoire où se trouve ton package.json
+      - expo-build:
+          title: Run Expo Application Services (EAS) build
+      - deploy-to-bitrise-io:
+          title: Deploy to Bitrise.io - Build Artifacts, Test Reports, and Pipeline
