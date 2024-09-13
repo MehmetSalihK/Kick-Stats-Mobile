@@ -12,5 +12,9 @@ workflows:
             - workdir: ./ # Assure-toi que c'est le bon répertoire où se trouve ton package.json
       - expo-build:
           title: Run Expo Application Services (EAS) build
+          inputs:
+            - platform: ios # ou 'android' selon la plateforme
+            - profile: production
+            - build_type: archive # pour une build de production
       - deploy-to-bitrise-io:
           title: Deploy to Bitrise.io - Build Artifacts, Test Reports, and Pipeline
