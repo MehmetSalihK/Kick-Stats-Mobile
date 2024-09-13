@@ -3,8 +3,7 @@ version: 2.1
 jobs:
   build-ios:
     macos:
-      xcode: "13.4.1"  # Spécifie la version d'Xcode
-    resource_class: macos.m1.medium  # Spécifie l'architecture ARM64
+      xcode: "14.0.0"  # Remplace par une version disponible si nécessaire
     steps:
       - checkout
       - run:
