@@ -7,6 +7,14 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install Node.js version 18.18.0
+          command: |
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm install 18.18.0
+            nvm use 18.18.0
+      - run:
           name: Install dependencies
           command: yarn install
       - run:
