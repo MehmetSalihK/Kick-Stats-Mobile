@@ -3,20 +3,17 @@ version: 2.1
 jobs:
   build-ios:
     macos:
-      xcode: "13.4.1"
+      xcode: "13.4.1"  # Spécifie la version d'Xcode
+    resource_class: macos.m1.medium  # Spécifie l'architecture ARM64
     steps:
       - checkout
       - run:
-          name: Install Node.js via nvm
+          name: Install Node.js via Homebrew (for M1)
           command: |
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-            nvm install 18.18.0
-            nvm use 18.18.0
-            echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
-            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
-            node -v
+            arch -arm64 brew install node@18
+            echo 'export PATH="/opt/homebrew/bin:$PATH"' >> $BASH_ENV
+            node -v  # Vérifie la version de Node.js
+            npm -v   # Vérifie la version de npm
       - run:
           name: Install dependencies
           command: yarn install
