@@ -3,22 +3,17 @@ version: 2.1
 jobs:
   build-ios:
     macos:
-      xcode: "14.0.0"  # Assure-toi que la version d'Xcode est disponible pour ton plan
+      xcode: "14.0.0"
     steps:
-      - checkout  # Clonage du dépôt
+      - checkout
       - run:
-          name: List Project Files
-          command: ls -R  # Liste récursive de tous les fichiers et répertoires
+          name: List Files
+          command: ls -R
       - run:
-          name: Check and Install Cocoapods
+          name: Install Cocoapods
           command: |
-            if [ -d "ios" ]; then
-              cd ios
-              pod install
-            else
-              echo "Directory ios does not exist."
-              exit 1
-            fi
+            cd ios || exit 1
+            pod install
       - run:
           name: Build IPA
           command: |
