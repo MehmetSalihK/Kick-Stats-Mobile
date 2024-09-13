@@ -13,7 +13,8 @@ workflows:
       - expo-build:
           title: Run Expo Application Services (EAS) build
           inputs:
-            - platform: ios # ou 'android' selon la plateforme
+            - command: build
+            - platform: ios # ou android selon la plateforme
             - profile: production
             - build_type: archive # pour une build de production
       - deploy-to-bitrise-io:
