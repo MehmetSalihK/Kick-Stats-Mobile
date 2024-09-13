@@ -3,12 +3,12 @@ version: 2.1
 jobs:
   build-ios:
     macos:
-      xcode: "14.0.0"
+      xcode: "14.0.0"  # Assure-toi que la version d'Xcode est disponible pour ton plan
     steps:
-      - checkout
+      - checkout  # Clonage du dépôt
       - run:
           name: List Project Files
-          command: ls -R
+          command: ls -R  # Liste récursive de tous les fichiers et répertoires
       - run:
           name: Check and Install Cocoapods
           command: |
