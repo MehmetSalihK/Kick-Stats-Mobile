@@ -4,16 +4,11 @@ workflows:
     scripts:
       - name: Install dependencies
         script: |
-          cd <nom_de_ton_dépôt> # Change to your project's directory
           npm install
       - name: Run build
         script: |
-          cd <nom_de_ton_dépôt>
           npx react-native run-ios --configuration Release
     artifacts:
-      - <nom_de_ton_dépôt>/ios/build/Products/Release-iphoneos/*.ipa # Chemin vers le fichier .ipa
-    publishing:
-      app_store:
-        api_key: "<votre_api_key_de_compte_de_développeur_Apple>" # Si tu veux publier sur l'App Store
+      - *.ipa
     environment:
       XCODE_VERSION: "Xcode 13.3" # Choisis la version appropriée d'Xcode
