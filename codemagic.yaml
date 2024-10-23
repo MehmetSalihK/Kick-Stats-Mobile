@@ -7,7 +7,6 @@ workflows:
           npm install --legacy-peer-deps
       - name: Build the app
         script: |
-          cd <nom_de_ton_dépôt>
           xcodebuild -workspace MonApp.xcworkspace -scheme MonApp -configuration Release -sdk iphoneos archive -archivePath ios/build/MyApp.xcarchive
           xcodebuild -exportArchive -archivePath ios/build/MyApp.xcarchive -exportOptionsPlist ios/exportOptions.plist -exportPath ios/build/
     artifacts:
