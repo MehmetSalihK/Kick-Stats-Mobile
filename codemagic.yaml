@@ -4,9 +4,11 @@ workflows:
     scripts:
       - name: Install dependencies
         script: |
-          yarn install
+          npm install --legacy-peer-deps
       - name: Build the app
         script: |
-          npx react-native run-ios --configuration Release
+          cd <nom_de_ton_dépôt>
+          xcodebuild -workspace MonApp.xcworkspace -scheme MonApp -configuration Release -sdk iphoneos archive -archivePath ios/build/MyApp.xcarchive
+          xcodebuild -exportArchive -archivePath ios/build/MyApp.xcarchive -exportOptionsPlist ios/exportOptions.plist -exportPath ios/build/
     artifacts:
-      - ios/build/Products/Release-iphoneos/*.ipa
+      - ios/build/*.ipa # Assure-toi que le chemin est correct
