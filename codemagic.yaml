@@ -4,11 +4,9 @@ workflows:
     scripts:
       - name: Install dependencies
         script: |
-          cd Kick-Stats-Mobile # Remplace par le nom de ton dépôt
           npm install --legacy-peer-deps
       - name: Build the app
         script: |
-          cd Kick-Stats-Mobile # Remplace par le nom de ton dépôt
           xcodebuild -workspace ios/MonApp.xcworkspace -scheme MonApp -configuration Release -sdk iphoneos archive -archivePath ios/build/MyApp.xcarchive
           xcodebuild -exportArchive -archivePath ios/build/MyApp.xcarchive -exportOptionsPlist ios/exportOptions.plist -exportPath ios/build/
     artifacts:
